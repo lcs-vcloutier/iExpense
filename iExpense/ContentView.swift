@@ -31,7 +31,7 @@ class Expenses: ObservableObject {
                 return
             }
         }
-
+        
         self.items = []
     }
 }
@@ -49,26 +49,25 @@ struct ContentView: View {
                                 .font(.headline)
                             Text(item.type)
                         }
-
+                        
                         Spacer()
                         Text("$\(item.amount)")
                     }
                 }
-                }
-                .onDelete(perform: removeItems)
-            }
-            .navigationBarTitle("iExpense")
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                                        self.showingAddExpense = true
-                                    }) {
-                                        Image(systemName: "plus")
-                                    }
-            )
-            .sheet(isPresented: $showingAddExpense) {
-                AddView(expenses: self.expenses)
-            }
+            .onDelete(perform: removeItems)
         }
+        .navigationBarTitle("iExpense")
+        .navigationBarItems(trailing:
+                                Button(action: {
+                                    self.showingAddExpense = true
+                                }) {
+                                    Image(systemName: "plus")
+                                }
+        )
+        .sheet(isPresented: $showingAddExpense) {
+            AddView(expenses: self.expenses)
+        }
+    }
     }
     func removeItems(at offsets: IndexSet) {
         expenses.items.remove(atOffsets: offsets)
